@@ -5,7 +5,7 @@
 ###    python3 -m venv venv     
 
 -> Activate the venv using command:
-###    source/bin/activate    
+###    source ./venv/bin/activate    
 
 -> Find the requirements.txt file. This file holds the dependencies to run the script. RUN following command to install  dependencies.
 
