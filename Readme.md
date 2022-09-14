@@ -1,4 +1,22 @@
-usage: customCompress.py  src dest [-h] [-t TYPE] [-width WIDTH] [-height HEIGHT]
+
+# STEPS to RUN the script:
+
+-> Create a virtual environment with command:
+###    python3 -m venv venv      # this will create a venv folder in your directory
+
+-> Activate the venv using command:
+###    LINUX ;  source/bin/activate     # a "(venv)" will be displayed if activated
+###    WINDOWS: source/Scripts/activate
+
+-> Find the requirements.txt file. This file holds the dependencies to run the script. RUN following command to install  dependencies.
+
+    pip install -r requirements.txt    #this will install all dependencies and adds in venv folder
+
+-> Now , run the script file to check usage.
+###    python3 customCompress.py --help
+
+
+## usage: customCompress.py  src dest [-h] [-t TYPE] [-width WIDTH] [-height HEIGHT]
                         
 
 ** Simple Python script for compressing and resizing images
@@ -16,3 +34,6 @@ optional arguments:
   -height HEIGHT, --height HEIGHT
             The new height for the image, make sure to set it with
             the `width` parameter
+
+
+
