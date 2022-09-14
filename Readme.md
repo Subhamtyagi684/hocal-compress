@@ -2,11 +2,10 @@
 # STEPS to RUN the script:
 
 -> Create a virtual environment with command:
-###    python3 -m venv venv      # this will create a venv folder in your directory
+###    python3 -m venv venv     
 
 -> Activate the venv using command:
-###    LINUX ;  source/bin/activate     # a "(venv)" will be displayed if activated
-###    WINDOWS: source/Scripts/activate
+###    source/bin/activate    
 
 -> Find the requirements.txt file. This file holds the dependencies to run the script. RUN following command to install  dependencies.
 
