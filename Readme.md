@@ -36,3 +36,5 @@ optional arguments:
 
 
 
+## To deactivate venv, you have to RUN
+    deactivate
