@@ -14,6 +14,10 @@
     pip install -r requirements.txt   
     ```
 
+1. Full sample command to execute
+    ```
+      python3 customCompress.py <src_of_image> -width 500 -height 300 -file <~/example.jpg>
+    ```
 1. Now , run the script file to check usage.
     ```
     python3 customCompress.py --help
