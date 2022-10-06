@@ -1,15 +1,17 @@
 
 # STEPS to RUN the script:
 
--> Create a virtual environment with command:
-###    python3 -m venv venv     
+1. Create a virtual environment with command:
+    ```
+    python3 -m venv venv     
+    ```
+1. Activate the venv using command:
+    ```
+    source ./venv/bin/activate    
+    ```
+1. Find the requirements.txt file. This file holds the dependencies to run the script. RUN following command to install  dependencies.
 
--> Activate the venv using command:
-###    source ./venv/bin/activate    
-
--> Find the requirements.txt file. This file holds the dependencies to run the script. RUN following command to install  dependencies.
-
-    pip install -r requirements.txt    #this will install all dependencies and adds in venv folder
+    pip install -r requirements.txt   
 
 -> Now , run the script file to check usage.
 ###    python3 customCompress.py --help
