@@ -1,5 +1,4 @@
 from PIL import Image
-# from colors.colorsFunctions import *
 import PIL.Image
 import os
 import argparse
@@ -38,12 +37,19 @@ def get_image(obj):
     width = obj['width'];
     height = obj['height']
     image_path = obj['src'];
-    dest_path = str(obj['dest']);
-    if not dest_path.endswith('/'):
-        dest_path+='/' 
-
-    image_name = str(image_path).split("/")[-1];
     ext = obj['type']
+    file_path = obj['file'];
+    folder_path = obj['folder']
+    dest_path = './'
+    if file_path:
+        dest_path = file_path
+        ext = getExtensionFrom(dest_path)
+    elif folder_path:
+        dest_path = folder_path
+        if not dest_path.endswith('/'):
+            dest_path+='/'
+    
+    image_name = str(image_path).split("/")[-1];
     try:
         with Image.open(image_path) as image:
             my_image = image.copy();
@@ -58,22 +64,39 @@ def get_image(obj):
         upper = getResizingDimensions[1];
         fwidth = getResizingDimensions[2];
         fheight = getResizingDimensions[3];
-        filename, dext = os.path.splitext(image_name)
-        z = my_image.crop((top,upper,fwidth,fheight)).resize((int(width),int(height)),resample=PIL.Image.ADAPTIVE).convert("RGB");
-        z.save(f"{dest_path}{filename}_compressed.{ext}",ext,quality=getQuality(z),optimize=True);
+        z = my_image.crop((top,upper,fwidth,fheight)).resize((int(width),int(height)),resample=PIL.Image.Palette.ADAPTIVE).convert("RGB");
+        if file_path:
+            z.save(f"{dest_path}",ext,quality=getQuality(z),optimize=True);
+        else:
+            filename, dext = os.path.splitext(image_name)
+            z.save(f"{dest_path}{filename}.{ext}",ext,quality=getQuality(z),optimize=True);
         print("[+] New file saved");
+    else:
+        print("Something went wrong while using resizing function")
     return;
+
+def getExtensionFrom(name):
+    nExt =  os.path.splitext(name)[1];
+    if nExt:
+        x = str(nExt.split('.')[-1]);
+        nExt = 'JPEG' if x.lower() == 'jpg' else x.upper();
+    else:
+        nExt = 'webp';
+    return nExt;
+
 
 
 if(__name__=="__main__"):
     parser = argparse.ArgumentParser(description="Simple Python script for compressing and resizing images")
     parser.add_argument("src", help="Target image to compress and/or resize")
-    parser.add_argument("dest", help="Path to upload compressed and/or resized image")
+    parser.add_argument("-file", "--file", type=str, help="name of the file as of same name it will saved")
+    parser.add_argument("-folder", "--folder", type=str, help="folder in which it have to be saved")
     parser.add_argument("-t", "--type", type=str, help="Extension to save image after compression",default="webp")
     parser.add_argument("-width", "--width", type=int, help="The new width image, make sure to set it with the `height` parameter")
     parser.add_argument("-height", "--height", type=int, help="The new height for the image, make sure to set it with the `width` parameter")
     args = vars(parser.parse_args());
-    width = args['width']
+    width = args['width'];
+
     while(width==None):
         cust_width = input("Enter the width to resize image: ")
         if(cust_width.isnumeric()):
@@ -81,7 +104,6 @@ if(__name__=="__main__"):
             width = cust_width;
         else:
             print("Please provide width in numbers only")
-    
     height = args['height']
     while(height==None):
         cust_height = input("Enter the height to resize image: ")
@@ -89,16 +111,10 @@ if(__name__=="__main__"):
             args['height']= cust_height;
             height = cust_height
         else:
-            print("Please provide height in numbers only")
+            print("Please provide height in numbers only");
 
     if(args['type']!="webp" and (args['type'] not in ['jpg','jpeg','png'])):
-        print("Please check your type of extension again");
+        print("Please check your type of extension again, valid extensions are only jpg, jpeg, png ");
         exit();
-    
-    print(args);
-
-    x = input("Are you sure to execute function with above details :  (yes/no) ")
-    if(x in ['y','yes',"Yes","yES","YES"]):
-        get_image(args);
     else:
-        print("[+] Successfully exited.");
+        get_image(args);
