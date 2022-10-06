@@ -58,18 +58,30 @@ def get_image(obj):
         return;
 
     if(my_image!=None):
-        getResizingDimensions = resize_image(my_image,int(width),int(height));
-        print("[+] Original dimension: "+str(my_image.size)+str(" Resized dimension ")+str(getResizingDimensions));
-        top = getResizingDimensions[0];
-        upper = getResizingDimensions[1];
-        fwidth = getResizingDimensions[2];
-        fheight = getResizingDimensions[3];
-        z = my_image.crop((top,upper,fwidth,fheight)).resize((int(width),int(height)),resample=PIL.Image.Palette.ADAPTIVE).convert("RGB");
-        if file_path:
-            z.save(f"{dest_path}",ext,quality=getQuality(z),optimize=True);
+        if (width and height):
+            getResizingDimensions = resize_image(my_image,int(width),int(height));
+            print("[+] Original dimension: "+str(my_image.size)+str(" Resized dimension ")+str(getResizingDimensions));
+            top = getResizingDimensions[0];
+            upper = getResizingDimensions[1];
+            fwidth = getResizingDimensions[2];
+            fheight = getResizingDimensions[3];
+            z = my_image.crop((top,upper,fwidth,fheight)).resize((int(width),int(height)),resample=PIL.Image.ADAPTIVE).convert("RGB");
+            if file_path:
+                z.save(f"{dest_path}",ext,quality=getQuality(z),optimize=True);
+            else:
+                filename, dext = os.path.splitext(image_name)
+                z.save(f"{dest_path}{filename}.{ext}",ext,quality=getQuality(z),optimize=True);
+        
         else:
-            filename, dext = os.path.splitext(image_name)
-            z.save(f"{dest_path}{filename}.{ext}",ext,quality=getQuality(z),optimize=True);
+            width = my_image.size[0];
+            height = my_image.size[1];
+            
+            z = my_image.resize((int(width),int(height)),resample=PIL.Image.ADAPTIVE).convert("RGB")
+            if file_path:
+                z.save(f"{dest_path}",ext,quality=getQuality(z),optimize=True);
+            else:
+                filename, dext = os.path.splitext(image_name)
+                z.save(f"{dest_path}{filename}.{ext}",ext,quality=getQuality(z),optimize=True);
         print("[+] New file saved");
     else:
         print("Something went wrong while using resizing function")
@@ -96,22 +108,7 @@ if(__name__=="__main__"):
     parser.add_argument("-height", "--height", type=int, help="The new height for the image, make sure to set it with the `width` parameter")
     args = vars(parser.parse_args());
     width = args['width'];
-
-    while(width==None):
-        cust_width = input("Enter the width to resize image: ")
-        if(cust_width.isnumeric()):
-            args['width'] = cust_width;
-            width = cust_width;
-        else:
-            print("Please provide width in numbers only")
-    height = args['height']
-    while(height==None):
-        cust_height = input("Enter the height to resize image: ")
-        if(cust_height.isnumeric()):
-            args['height']= cust_height;
-            height = cust_height
-        else:
-            print("Please provide height in numbers only");
+    height = args['height'];
 
     if(args['type']!="webp" and (args['type'] not in ['jpg','jpeg','png'])):
         print("Please check your type of extension again, valid extensions are only jpg, jpeg, png ");
