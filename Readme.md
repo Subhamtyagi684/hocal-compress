@@ -16,7 +16,7 @@
 
 1. Full sample command to execute
     ```
-    python3 customCompress.py <src_of_image> -width 500 -height 300 -file <~/example.jpg>
+    python3 customCompress.py <src_of_image> -file <~/example.jpg>
     ```
 1. Now , run the script file to check usage.
     ```
