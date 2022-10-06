@@ -14,9 +14,10 @@
     pip install -r requirements.txt   
     ```
 
--> Now , run the script file to check usage.
-###    python3 customCompress.py --help
-
+1. Now , run the script file to check usage.
+    ```
+    python3 customCompress.py --help
+    ```
 
 ## usage: customCompress.py  src dest [-h] [-t TYPE] [-width WIDTH] [-height HEIGHT]
                         
