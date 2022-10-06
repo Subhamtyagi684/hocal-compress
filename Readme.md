@@ -10,8 +10,9 @@
     source ./venv/bin/activate    
     ```
 1. Find the requirements.txt file. This file holds the dependencies to run the script. RUN following command to install  dependencies.
-
+    ```
     pip install -r requirements.txt   
+    ```
 
 -> Now , run the script file to check usage.
 ###    python3 customCompress.py --help
